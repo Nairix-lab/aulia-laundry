@@ -1,0 +1,388 @@
+/* --- 1. RESET & BASE STYLES --- */
+html {
+    scroll-behavior: smooth; /* Ini sihirnya biar layarnya scroll mulus */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+:root {
+    --primary-blue: #1e40af;
+    --secondary-blue: #3b82f6;
+    --accent-gold: #fbbf24;
+    --success-green: #22c55e;
+    --text-dark: #1f2937;
+    --bg-light: #f8fafc;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+/* --- 2. NAVIGASI (Sticky & Clean) --- */
+/* --- TOMBOL HAMBURGER --- */
+.menu-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px; /* Posisi di pojok kiri atas */
+    z-index: 1001; /* Harus lebih tinggi dari sidebar biar gak ketutup */
+    cursor: pointer;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Jarak antar garis */
+}
+
+/* Garis-garis penyusun hamburger */
+.menu-toggle .bar {
+    width: 25px;
+    height: 3px;
+    background-color: #1e3a8a;
+    transition: 0.3s;
+    border-radius: 3px;
+}
+
+/* --- SIDEBAR NGUMPET --- */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background: #ffffff;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1000;
+    /* INI KUNCINYA: Geser sidebar ke kiri sampai hilang dari layar (-100%) */
+    transform: translateX(-100%); 
+    transition: transform 0.4s ease; /* Bikin efek meluncurnya mulus */
+}
+
+/* --- SIDEBAR MUNCUL (Class ini nanti ditambahin pakai JavaScript) --- */
+.sidebar.aktif {
+    transform: translateX(0); /* Balik ke posisi awal (kelihatan) */
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* --- KONTEN UTAMA --- */
+main {
+    margin-left: 0; /* Hapus margin kiri yang lama */
+    width: 100%;
+    /* Tambah padding atas dikit biar teks gak ketabrak tombol hamburger */
+    padding-top: 60px; 
+}
+
+
+/* --- 3. HERO SECTION (Visual Hierarchy) --- */
+.hero-section {
+    display: flex;
+    align-items: center;
+    padding: 5rem 10%;
+    background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
+    gap: 2rem;
+}
+
+.hero-section .h1 {
+    flex: 1;
+}
+
+.hero-section h2 {
+    font-size: 3rem;
+    color: var(--primary-blue);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    color: #4b5563;
+}
+
+.gambar-header {
+    flex: 1;
+    text-align: right;
+}
+
+.gambar-header img {
+    max-width: 100%;
+    border-radius: 20px;
+    box-shadow: 20px 20px 60px #d1d9e6;
+}
+
+/* --- 4. PROBLEM SECTION PERBAIKAN --- */
+.problem {
+    padding: 5rem 10%;
+    text-align: center;
+}
+.grid-problem {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+.grid-problem article {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+.grid-problem img {
+    width: 150px; /* Ukuran gambar diperbesar agar proporsional */
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 1.5rem;
+    border-radius: 10px;
+}
+
+/* --- 5. SOLUTION SECTION PERBAIKAN --- */
+.solution {
+    padding: 5rem 10%;
+    background: white;
+}
+.solution-header h2 {
+    text-align: center;
+    margin-bottom: 4rem;
+    font-size: 2.2rem;
+    color: var(--primary-blue);
+}
+.solution div[class^="solution-"] {
+    display: flex;
+    align-items: center; /* Sejajarkan tengah */
+    gap: 4rem;
+    margin-bottom: 5rem;
+}
+.solution div:nth-child(even) {
+    flex-direction: row-reverse; /* Buat gambar selang-seling */
+}
+.teks-solusi {
+    flex: 1; /* Wajib: Memaksa teks memakan sisa ruang agar tidak gepeng */
+    text-align: left;
+}
+.solution img {
+    flex: 1; /* Gambar mengambil porsi separuh layar */
+    max-width: 400px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* --- 6. GARANSI PERBAIKAN (Biar nggak raksasa) --- */
+.garansi {
+    padding: 5rem 10%;
+    background: #1e3a8a;
+    color: white;
+    border-radius: 0 0 50px 50px;
+}
+.garansi-deskripsi {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+    margin-top: 3rem;
+}
+.garansi-deskripsi h4 {
+    flex: 1;
+    font-size: 1.5rem;
+    line-height: 1.8;
+}
+.garansi-deskripsi img {
+    flex: 1;
+    max-width: 50%; /* INI KUNCINYA: membatasi lebar maksimal gambar agar muat */
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+/* --- KODE GARANSI POIN YANG BARU --- */
+.garansi-poin ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    list-style: none;
+    margin-bottom: 4rem;
+}
+
+.garansi-poin li {
+    background: white; /* Mengubah kotak menjadi putih terang */
+    color: var(--primary-blue); /* Teks jadi biru gelap agar kontras & jelas */
+    padding: 1.5rem 2rem;
+    border-radius: 12px; /* Ujung kotak sedikit membulat (modern) */
+    font-weight: 800; /* Teks dibuat sangat tebal */
+    font-size: 1.1rem;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); /* Bayangan tebal agar kotak terlihat timbul/3D */
+    border-bottom: 6px solid var(--accent-gold); /* Garis aksen emas di bagian bawah kotak */
+    transition: transform 0.3s ease;
+    flex: 1; /* Memaksa semua kotak membagi ruang agar lebarnya seragam */
+    min-width: 250px; /* Batas minimal lebar kotak agar tidak gepeng di layar HP */
+}
+
+/* Efek interaktif tambahan */
+.garansi-poin li:hover {
+    transform: translateY(-8px); /* Kotak akan sedikit melayang naik saat disentuh kursor */
+}
+
+/* --- 7. DAFTAR HARGA (PRICE LIST) --- */
+.price-list {
+    padding: 5rem 10%;
+    background: #eff6ff; /* Warna biru sangat muda sebagai pemisah section */
+}
+
+.price-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.price-header h2 {
+    font-size: 2.5rem;
+    color: var(--primary-blue);
+}
+
+.price-container {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    background: white;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.price-image {
+    flex: 1;
+}
+
+.price-image img {
+    width: 100%;
+    border-radius: 15px;
+}
+
+.price-details {
+    flex: 1.5; /* Memberikan ruang sedikit lebih besar untuk teks harga */
+}
+
+.price-details ul {
+    list-style: none;
+    margin-bottom: 2rem;
+}
+
+.price-details li {
+    display: flex;
+    justify-content: space-between; /* Teks di kiri, Harga di kanan */
+    padding: 1rem 0;
+    border-bottom: 2px dashed #cbd5e1; /* Garis putus-putus ala struk */
+    font-size: 1.2rem;
+}
+
+.price-details li span {
+    color: #4b5563;
+    font-weight: 600;
+}
+
+.price-details li strong {
+    color: var(--primary-blue);
+    font-size: 1.3rem;
+    font-weight: 800;
+}
+
+/* Kotak peringatan harga chat */
+.price-note {
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-left: 5px solid var(--accent-gold);
+    margin-top: 2rem;
+}
+
+.price-note p {
+    font-size: 1rem;
+    color: #64748b;
+    margin-bottom: 1.5rem;
+}
+
+.tombol-chat-harga {
+    display: inline-block;
+    background: var(--success-green);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(34, 197, 94, 0.3);
+    transition: transform 0.3s;
+}
+
+.tombol-chat-harga:hover {
+    transform: translateY(-3px);
+}
+
+/* Responsif: Bikin layout numpuk atas-bawah kalau dibuka di HP */
+@media (max-width: 768px) {
+    .price-container {
+        flex-direction: column;
+        padding: 1.5rem;
+    }
+}
+
+/* --- 8. BUTTON CTA (Conversion Focus) --- */
+.button {
+    padding: 5rem 10%;
+    text-align: center;
+}
+
+.tombol-utama {
+    background: var(--success-green);
+    color: white;
+    padding: 1.5rem 3rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(34, 197, 94, 0.3);
+    transition: all 0.3s;
+    max-width: 800px;
+}
+
+.tombol-utama:hover {
+    background: #16a34a;
+    transform: scale(1.05);
+    box-shadow: 0 15px 30px rgba(34, 197, 94, 0.4);
+}
+
+/* --- 8. RESPONSIVE (Mobile Friendly) --- */
+/* --- LAYAR HP & TABLET KECIL --- */
+@media (max-width: 768px) {
+    .sidebar {
+        position: relative; /* Balik nempel di atas, bukan di kiri lagi */
+        width: 100%;
+        height: auto;
+        padding: 1rem;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* Bayangan ke arah bawah */
+    }
+
+    .sidebar .logo img {
+        margin-bottom: 1rem;
+    }
+
+    .sidebar .nav-menu ul {
+        flex-direction: row; /* Menu kembali berjejer ke samping */
+        justify-content: center;
+        flex-wrap: wrap; /* Kalau kepanjangan, otomatis turun ke baris bawah */
+        gap: 10px;
+    }
+
+    main {
+        margin-left: 0; /* Menghapus margin kiri, isi web kembali full layar di HP */
+        width: 100%;
+    }
+}
